@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ornament Audio Demo</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== Navigation bar ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">Ornament Detection</a>
+    <div class="nav-links">
+      <a href="index.html">Model</a>
+      <a href="ornaments.html" class="active">Demo</a>
+      <a href="index.html#about">About</a>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <header class="page-header">
+      <h1>Ornament Audio Demonstration</h1>
+      <p class="subtitle">Listen to examples of different Indian classical music ornaments.</p>
+    </header>
+
+    <!--
+      ===== Ornament cards =====
+      Each "Play" button plays a permanent file from assets/audio/.
+      To change the example, simply replace the file in that folder:
+        assets/audio/meend.mp3
+        assets/audio/kanswar.mp3
+        assets/audio/murki.mp3
+      The data-audio attribute tells app.js which file to play.
+    -->
+    <section class="ornament-grid">
+
+      <div class="card ornament-card">
+        <h2>Meend</h2>
+        <p class="muted">A smooth transition (glide) between notes.</p>
+        <button class="button play-button" data-audio="assets/audio/meend.mp3">&#9654; Play Meend</button>
+        <p class="play-message muted"></p>
+        <!-- Recordings added during this session appear here -->
+        <div class="added-audio-list" id="added-meend"></div>
+      </div>
+
+      <div class="card ornament-card">
+        <h2>Kanswar</h2>
+        <p class="muted">A brief touch of a neighbouring grace note before the main note.</p>
+        <button class="button play-button" data-audio="assets/audio/kanswar.mp3">&#9654; Play Kanswar</button>
+        <p class="play-message muted"></p>
+        <div class="added-audio-list" id="added-kanswar"></div>
+      </div>
+
+      <div class="card ornament-card">
+        <h2>Murki</h2>
+        <p class="muted">A quick, light cluster of two or three notes.</p>
+        <button class="button play-button" data-audio="assets/audio/murki.mp3">&#9654; Play Murki</button>
+        <p class="play-message muted"></p>
+        <div class="added-audio-list" id="added-murki"></div>
+      </div>
+
+    </section>
+
+    <!-- ===== Add demonstration audio (temporary, this browser session only) ===== -->
+    <section class="card" id="add-audio-section">
+      <h2>Add Demonstration Audio</h2>
+      <p class="muted">
+        The recording is added to the chosen ornament card for this session only.
+        It disappears when the page is refreshed. To keep it permanently, copy the file into
+        <code>assets/audio/</code> (see README).
+      </p>
+
+      <div class="form-row">
+        <label for="ornament-select">Select Ornament:</label>
+        <select id="ornament-select">
+          <option value="meend">Meend</option>
+          <option value="kanswar">Kanswar</option>
+          <option value="murki">Murki</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="demo-file-input">Select Audio:</label>
+        <input type="file" id="demo-file-input" accept=".wav,.mp3,.m4a,.ogg,audio/*">
+      </div>
+
+      <!-- Preview of the chosen file before adding it -->
+      <audio id="demo-preview-player" controls hidden></audio>
+
+      <div>
+        <button id="add-audio-button" class="button">Add Audio</button>
+      </div>
+      <p id="add-audio-message" class="status" hidden></p>
+    </section>
+
+  </main>
+
+  <footer class="footer">College project &middot; Research prototype</footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

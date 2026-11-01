@@ -1,0 +1,33 @@
+{
+    "ornament": "meend",
+    "model_file": "meend_CNN.pth",
+    "threshold": 0.78,
+    "frame_size": 100,
+    "features": [
+        "frequency_hz",
+        "velocity",
+        "acceleration"
+    ],
+    "input_channels": 3,
+    "label_map": {
+        "no_meend": 0,
+        "meend": 1
+    },
+    "architecture": {
+        "conv1_out_channels": 16,
+        "conv1_kernel_size": 7,
+        "conv2_out_channels": 32,
+        "conv2_kernel_size": 7,
+        "conv3_out_channels": 32,
+        "conv3_kernel_size": 5,
+        "pooling": "AdaptiveAvgPool1d(1)",
+        "classifier_output": 1
+    },
+    "training": {
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "epochs": 10,
+        "loss": "BCEWithLogitsLoss",
+        "pos_weight": 7.192062854766846
+    }
+}

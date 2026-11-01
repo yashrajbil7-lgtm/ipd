@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ornament Detection</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== Navigation bar (same on every page) ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">Ornament Detection</a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Model</a>
+      <a href="ornaments.html">Demo</a>
+      <a href="index.html#about">About</a>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- ===== Header ===== -->
+    <header class="page-header">
+      <h1>Indian Classical Music Ornament Detection</h1>
+      <p class="subtitle">Audio-based detection of Meend, Kanswar and Murki</p>
+    </header>
+
+    <!-- ===== How it works (one line, so the teacher sees the flow) ===== -->
+    <p class="flow">
+      Upload audio &rarr; Pitch extraction (CREPE) &rarr; 1D CNN model &rarr; Result for every 1-second segment
+    </p>
+
+    <!-- ===== Step 1: Upload audio ===== -->
+    <section class="card" id="upload-section">
+      <h2>1. Upload Audio</h2>
+      <p class="muted">Supported formats: WAV, MP3, M4A, OGG</p>
+
+      <!-- The real file input is hidden; the label acts as a nice button -->
+      <label for="audio-file-input" class="button button-secondary">Choose Audio File</label>
+      <input type="file" id="audio-file-input" accept=".wav,.mp3,.m4a,.ogg,audio/*" hidden>
+
+      <p id="selected-file-name" class="muted">No file selected.</p>
+
+      <!-- Player so the teacher can listen before analysing -->
+      <audio id="upload-audio-player" controls hidden></audio>
+
+      <div>
+        <button id="analyze-button" class="button">Analyze Audio</button>
+      </div>
+
+      <!-- Loading / error messages appear here -->
+      <p id="status-message" class="status" hidden></p>
+    </section>
+
+    <!-- ===== Step 2: Result (hidden until the model answers) ===== -->
+    <section class="card" id="result-section" hidden>
+      <h2>2. Prediction</h2>
+
+      <!-- Audio length / standardisation used by the model -->
+      <p id="result-info" class="muted"></p>
+
+      <!-- Short summary: which ornaments were found and where -->
+      <div id="result-summary"></div>
+
+      <h3>Segment-by-segment result</h3>
+      <p class="muted">
+        The recording is split into 1-second segments (50% overlap).
+        For each segment the model says whether the ornament is present.
+        Click &#9654; to listen to that segment.
+      </p>
+
+      <label class="checkbox-label">
+        <input type="checkbox" id="only-detected-checkbox">
+        Show only segments where an ornament is present
+      </label>
+
+      <div class="table-wrapper">
+        <table id="result-table">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== Model information ===== -->
+    <section class="card">
+      <h2>Model Information</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <h3>Preprocessing</h3>
+          <p class="muted">Audio loading, CREPE pitch (F0), velocity, acceleration, standardisation and framing.</p>
+          <!-- Place your PDF at: assets/reports/preprocessing_report.pdf -->
+          <a href="assets/reports/preprocessing_report.pdf" target="_blank" class="button button-secondary">View Preprocessing Report</a>
+        </div>
+        <div class="info-item">
+          <h3>Model</h3>
+          <p class="muted">One 1D CNN per ornament (3 &times; 100 input, output: Meend / No Meend).</p>
+          <!-- Place your PDF at: assets/reports/model_report.pdf -->
+          <a href="assets/reports/model_report.pdf" target="_blank" class="button button-secondary">View Model Details</a>
+        </div>
+        <div class="info-item">
+          <h3>Configuration</h3>
+          <p class="muted">Features, layers and training settings.</p>
+          <button id="view-config-button" class="button button-secondary">View Model Configuration</button>
+        </div>
+      </div>
+
+      <!-- model_config.json is shown here as plain text -->
+      <pre id="config-display" hidden></pre>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section class="card" id="about">
+      <h2>About</h2>
+      <p><strong>Project:</strong> Indian Classical Music Ornament Detection</p>
+      <p><strong>Goal:</strong> The system detects musical ornaments from audio recordings using machine learning.</p>
+      <p><strong>Detected Ornaments:</strong></p>
+      <ul>
+        <li><strong>Meend</strong> &ndash; a smooth glide from one note to another</li>
+        <li><strong>Kanswar</strong> &ndash; a brief touch of a neighbouring grace note</li>
+        <li><strong>Murki</strong> &ndash; a quick, light cluster of two or three notes</li>
+      </ul>
+      <p class="muted">Want to hear them? Go to the <a href="ornaments.html">Demo</a> page.</p>
+    </section>
+
+  </main>
+
+  <footer class="footer">College project &middot; Research prototype</footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
